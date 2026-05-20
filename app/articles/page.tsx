@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { articles } from "@/data/articles";
+import { getArticles } from "@/lib/article/getArticles";
 import { GuideArticleCard } from "@/components/common/GuideArticleCard";
 
 export const metadata: Metadata = {
@@ -8,7 +8,9 @@ export const metadata: Metadata = {
     "백주를 더 깊이 즐기기 위한 한국어 칼럼과 가이드를 모았습니다.",
 };
 
-export default function ArticlesIndexPage() {
+export default async function ArticlesIndexPage() {
+  const articles = await getArticles();
+
   const sorted = [...articles].sort((a, b) =>
     a.publishedAt < b.publishedAt ? 1 : -1,
   );

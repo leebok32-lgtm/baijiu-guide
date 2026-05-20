@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { aromaTypes } from "@/data/aromaTypes";
+import { getAromaTypes } from "@/lib/aroma/getAromaTypes";
 
 export const metadata: Metadata = {
   title: "향형사전 | 청향·농향·장향·미향·겸향",
@@ -8,7 +8,9 @@ export const metadata: Metadata = {
     "백주의 향형(香型)을 한국어로 친절하게 설명합니다. 각 향형의 특징, 대표 향, 추천 음식과 대표 제품을 확인하세요.",
 };
 
-export default function AromaIndexPage() {
+export default async function AromaIndexPage() {
+  const aromaTypes = await getAromaTypes();
+
   return (
     <div className="space-y-8">
       <header>

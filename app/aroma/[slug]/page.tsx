@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { aromaTypes, getAromaTypeBySlug } from "@/data/aromaTypes";
+import { getAromaTypes, getAromaTypeBySlug } from "@/lib/aroma/getAromaTypes";
 import { getProductsByAroma } from "@/lib/products/getProductsByAroma";
 import { getProductsByIds } from "@/lib/products/getProductsByIds";
 import { ProductCard } from "@/components/product/ProductCard";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const aromaTypes = await getAromaTypes();
   return aromaTypes.map((a) => ({ slug: a.slug }));
 }
 
@@ -15,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const aroma = getAromaTypeBySlug(slug);
+  const aroma = await getAromaTypeBySlug(slug);
   if (!aroma) return { title: "향형을 찾을 수 없어요" };
   return {
     title: `${aroma.nameKo} (${aroma.nameCn}) 향형 가이드`,
@@ -29,7 +30,7 @@ export default async function AromaDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const aroma = getAromaTypeBySlug(slug);
+  const aroma = await getAromaTypeBySlug(slug);
   if (!aroma) notFound();
 
   const [reps, all] = await Promise.all([

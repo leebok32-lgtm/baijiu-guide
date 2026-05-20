@@ -1,12 +1,9 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "./database.types";
 
-let cached: SupabaseClient<Database> | null = null;
+let cachedAnon: SupabaseClient<Database> | null = null;
+let cachedService: SupabaseClient<Database> | null = null;
 
-/**
- * 환경변수가 둘 다 설정되었는지 확인합니다.
- * 둘 다 있어야만 Supabase 모드로 동작합니다.
- */
 export function isSupabaseConfigured(): boolean {
   return Boolean(
     process.env.NEXT_PUBLIC_SUPABASE_URL &&
@@ -14,23 +11,51 @@ export function isSupabaseConfigured(): boolean {
   );
 }
 
+export function isSupabaseServiceConfigured(): boolean {
+  return Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      process.env.SUPABASE_SERVICE_ROLE_KEY,
+  );
+}
+
 /**
- * Supabase 클라이언트를 반환합니다.
- *
- * 환경변수가 없으면 `null` 을 반환하며, 호출하는 쪽 (예: supabaseRepository)
- * 에서 mock fallback으로 자연스럽게 떨어집니다.
- *
- * 같은 프로세스 내에서 재호출 시 캐시된 클라이언트를 반환합니다.
+ * 익명(publishable) 키 기반 클라이언트. 클라이언트/서버 어디서나 사용 가능.
+ * RLS 정책의 영향을 받습니다.
  */
 export function getSupabaseClient(): SupabaseClient<Database> | null {
-  if (cached) return cached;
+  if (cachedAnon) return cachedAnon;
   if (!isSupabaseConfigured()) return null;
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string;
 
-  cached = createClient<Database>(url, key, {
+  cachedAnon = createClient<Database>(url, key, {
     auth: { persistSession: false },
   });
-  return cached;
+  return cachedAnon;
+}
+
+/**
+ * service_role 키 기반 클라이언트. **서버 사이드에서만** 사용하세요.
+ * RLS 를 우회하므로 클라이언트 번들에 절대 노출되면 안 됩니다.
+ *
+ * route handler / server action 안에서 mutations (예: submissions INSERT) 에
+ * 사용합니다. 환경변수 미설정 시 `null` 반환.
+ */
+export function getSupabaseServiceClient(): SupabaseClient<Database> | null {
+  if (typeof window !== "undefined") {
+    throw new Error(
+      "getSupabaseServiceClient() must only be called on the server.",
+    );
+  }
+  if (cachedService) return cachedService;
+  if (!isSupabaseServiceConfigured()) return null;
+
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY as string;
+
+  cachedService = createClient<Database>(url, key, {
+    auth: { persistSession: false },
+  });
+  return cachedService;
 }

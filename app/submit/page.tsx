@@ -19,7 +19,7 @@ export default function SubmitPage() {
           반영해 더 많은 분들이 정보를 얻을 수 있도록 도울게요.
         </p>
         <p className="mt-1 text-xs text-navy-700/70">
-          초기 버전은 콘솔 출력으로만 처리되며 실제 저장은 추후 지원됩니다.
+          제보 내용은 서버에 안전하게 저장되며, 검수 후 사이트에 반영됩니다.
         </p>
       </header>
 

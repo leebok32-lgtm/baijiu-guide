@@ -46,6 +46,9 @@ npm run start
 
 ```
 app/                # Next.js App Router 페이지
+  api/
+    ocr/            # POST /api/ocr — 사진 OCR
+    submit/         # POST /api/submit — 제보 저장 (Supabase or mock)
 components/
   product/          # 제품 카드/상세 컴포넌트
   search/           # 검색·필터 컴포넌트
@@ -53,29 +56,25 @@ components/
   layout/           # Header, Footer
   common/           # 뱃지·랭킹·페어링 등 공통 UI
 data/               # mock 데이터 (products, aromaTypes, pairings, articles)
-                    # ⚠ 직접 import 금지 — lib/products/ 통해서만 접근
+                    # ⚠ 직접 import 금지 — lib/*/ 통해서만 접근
 lib/
-  products/         # ★ public async API (repository 경유)
-    getProducts.ts
-    getProductBySlug.ts
-    getProductsByIds.ts
-    getProductsByAroma.ts
-    searchProducts.ts
-    filterProducts.ts
-    repository.ts          # ProductRepository 인터페이스 + getActiveRepository()
-    mockRepository.ts      # data/products.ts 사용
-    supabaseRepository.ts  # Supabase 사용 (env var 있을 때 활성)
+  products/         # ★ Product repository (mock + supabase)
+  aroma/            # ★ AromaType repository (mock + supabase)
+  pairing/          # ★ Pairing repository (mock + supabase)
+  article/          # ★ Article repository (mock + supabase)
   supabase/
     client.ts              # 환경변수 있을 때만 client 반환, 없으면 null
     database.types.ts      # snake_case Row 타입
-    mappers.ts             # rowToProduct / productToInsert
+    mappers.ts             # row → domain 타입 변환
   search/           # 순수 함수: 메모리 내 검색/필터 (클라이언트 UI 용)
   ocr/              # mockOcr, normalizeOcrText, matchProduct
   utils/            # cn, formatPrice
+scripts/
+  seed.ts           # mock 데이터 → Supabase upsert (npx tsx scripts/seed.ts)
 supabase/
   schema.sql        # 테이블, 인덱스, RLS 정책
 types/              # 공용 타입 정의
-.env.example        # NEXT_PUBLIC_SUPABASE_URL / ANON_KEY 템플릿
+.env.example        # 환경변수 템플릿
 ```
 
 ## Supabase 연동
@@ -87,13 +86,27 @@ types/              # 공용 타입 정의
    ```
    NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
    NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGc...
+   SUPABASE_SERVICE_ROLE_KEY=eyJhbGc...
    ```
-3. 시드 스크립트로 mock 데이터 import (별도 작성 필요)
-4. `npm run dev` — 환경변수가 감지되면 자동으로 `supabaseRepository` 가 활성화됩니다.
+3. 시드 스크립트로 mock 데이터를 Supabase에 import
+   ```bash
+   npx tsx scripts/seed.ts
+   ```
+4. `npm run dev` — 환경변수가 감지되면 자동으로 Supabase repository 가 활성화됩니다.
 
-데이터 계층은 repository 패턴으로 추상화되어 있어, mock ↔ Supabase 전환 시
-페이지·컴포넌트 코드는 그대로 유지됩니다. 새 페이지에서 제품 데이터가 필요하면
-반드시 `lib/products/*` 의 async 함수를 사용하세요 (`data/products.ts` 직접 import 금지).
+모든 데이터 계층은 repository 패턴으로 추상화되어 있어, mock ↔ Supabase 전환 시
+페이지·컴포넌트 코드는 그대로 유지됩니다.
+
+| 데이터 | Mock 소스 | Repository |
+|---|---|---|
+| 제품 (products) | `data/products.ts` | `lib/products/` |
+| 향형 (aroma_types) | `data/aromaTypes.ts` | `lib/aroma/` |
+| 페어링 (pairings) | `data/pairings.ts` | `lib/pairing/` |
+| 칼럼 (articles) | `data/articles.ts` | `lib/article/` |
+| 제보 (submissions) | mock fallback | `POST /api/submit` |
+
+새 페이지에서 데이터가 필요하면 반드시 `lib/*/get*.ts` 의 async 함수를 사용하세요
+(`data/*.ts` 직접 import 금지).
 
 ## OCR 모듈
 

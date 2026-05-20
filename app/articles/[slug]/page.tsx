@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { articles, getArticleBySlug } from "@/data/articles";
+import { getArticles, getArticleBySlug } from "@/lib/article/getArticles";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const articles = await getArticles();
   return articles.map((a) => ({ slug: a.slug }));
 }
 
@@ -13,7 +14,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const article = await getArticleBySlug(slug);
   if (!article) return { title: "글을 찾을 수 없어요" };
   return {
     title: article.title,
@@ -27,7 +28,7 @@ export default async function ArticleDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const article = await getArticleBySlug(slug);
   if (!article) notFound();
 
   return (

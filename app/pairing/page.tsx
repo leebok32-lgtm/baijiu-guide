@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { pairings } from "@/data/pairings";
+import { getPairings } from "@/lib/pairing/getPairings";
 import { PairingCard } from "@/components/common/PairingCard";
 
 export const metadata: Metadata = {
@@ -8,7 +8,9 @@ export const metadata: Metadata = {
     "양꼬치, 마라탕, 훠궈, 동파육 등 자주 즐기는 음식과 어울리는 백주를 한국어로 추천해 드립니다.",
 };
 
-export default function PairingPage() {
+export default async function PairingPage() {
+  const pairings = await getPairings();
+
   return (
     <div className="space-y-8">
       <header>

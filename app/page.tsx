@@ -1,13 +1,18 @@
 import Link from "next/link";
 import { getProducts } from "@/lib/products/getProducts";
-import { aromaTypes } from "@/data/aromaTypes";
-import { articles } from "@/data/articles";
-import { pairings } from "@/data/pairings";
+import { getAromaTypes } from "@/lib/aroma/getAromaTypes";
+import { getArticles } from "@/lib/article/getArticles";
+import { getPairings } from "@/lib/pairing/getPairings";
 import { ProductCard } from "@/components/product/ProductCard";
 import { GuideArticleCard } from "@/components/common/GuideArticleCard";
 
 export default async function HomePage() {
-  const products = await getProducts();
+  const [products, aromaTypes, articles, pairings] = await Promise.all([
+    getProducts(),
+    getAromaTypes(),
+    getArticles(),
+    getPairings(),
+  ]);
 
   const beginnerPicks = products
     .filter((p) => p.beginnerLevel === "쉬움" || p.beginnerLevel === "보통")

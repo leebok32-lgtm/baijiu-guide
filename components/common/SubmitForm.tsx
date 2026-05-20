@@ -10,12 +10,18 @@ interface SubmitPayload {
   description: string;
   submitter: string;
   contact: string;
-  hasImage: boolean;
 }
 
-async function mockSubmit(payload: SubmitPayload): Promise<void> {
-  await new Promise((r) => setTimeout(r, 600));
-  console.log("[고량주가이드] 제보 mock submit:", payload);
+async function submitToApi(payload: SubmitPayload): Promise<void> {
+  const res = await fetch("/api/submit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.error || "제보 전송에 실패했습니다.");
+  }
 }
 
 export function SubmitForm() {
@@ -60,7 +66,7 @@ export function SubmitForm() {
     }
     setSubmitting(true);
     try {
-      await mockSubmit({
+      await submitToApi({
         productName,
         abv,
         source,
@@ -68,7 +74,6 @@ export function SubmitForm() {
         description,
         submitter,
         contact,
-        hasImage: Boolean(image),
       });
       setDone(true);
     } catch {
@@ -86,8 +91,6 @@ export function SubmitForm() {
         </h3>
         <p className="mt-2 text-sm text-emerald-900/80">
           소중한 정보 잘 받았습니다. 검수 후 데이터에 반영될 예정입니다.
-          <br />
-          (초기 버전은 콘솔 출력으로만 처리되며 실제 저장은 추후 지원됩니다.)
         </p>
         <button
           type="button"

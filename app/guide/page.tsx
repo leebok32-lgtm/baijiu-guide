@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { aromaTypes } from "@/data/aromaTypes";
+import { getAromaTypes } from "@/lib/aroma/getAromaTypes";
 
 export const metadata: Metadata = {
   title: "입문가이드 | 백주가 처음이라면",
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const STEPS = [
   {
     title: "1. 백주가 뭔가요?",
-    body: "백주(白酒)는 중국 전통의 곡물 증류주를 통칭합니다. 한국에서는 ‘고량주(高粱酒)’라고도 하지만, 거의 같은 술을 가리킨다고 보셔도 됩니다. 수수·쌀·옥수수·밀 등 곡물을 발효시킨 뒤 증류해 만들며, 보통 40~60도 사이의 도수입니다.",
+    body: "백주(白酒)는 중국 전통의 곡물 증류주를 통칭합니다. 한국에서는 '고량주(高粱酒)'라고도 하지만, 거의 같은 술을 가리킨다고 보셔도 됩니다. 수수·쌀·옥수수·밀 등 곡물을 발효시킨 뒤 증류해 만들며, 보통 40~60도 사이의 도수입니다.",
   },
   {
     title: "2. 도수가 너무 높은 게 부담된다면?",
@@ -19,7 +19,7 @@ const STEPS = [
   },
   {
     title: "3. 향형을 알면 고르기가 쉬워져요",
-    body: "백주는 ‘향형(香型)’에 따라 풍미가 크게 달라집니다. 가벼운 청향형부터 농향형, 묵직한 장향형까지 다양해요.",
+    body: "백주는 '향형(香型)'에 따라 풍미가 크게 달라집니다. 가벼운 청향형부터 농향형, 묵직한 장향형까지 다양해요.",
   },
   {
     title: "4. 음식과 함께 마셔보세요",
@@ -31,7 +31,9 @@ const STEPS = [
   },
 ];
 
-export default function GuidePage() {
+export default async function GuidePage() {
+  const aromaTypes = await getAromaTypes();
+
   return (
     <div className="space-y-10">
       <header>
