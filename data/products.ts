@@ -27,7 +27,7 @@ export const products: Product[] = [
     oneLineReview: "한국인의 양꼬치 짝꿍, 가장 친숙한 입문 백주.",
     story:
       "한국에서 가장 널리 알려진 백주로, 양꼬치 가게에서 빠지지 않는 술입니다. 비교적 낮은 도수와 부담 없는 가격 덕분에 처음 백주를 접하는 분에게 가장 자주 추천됩니다.",
-    imageUrl: "/images/products/yantai-gulang.svg",
+    imageUrl: "/images/products/yantai-gulang.png",
     aliases: ["연태", "연태주", "옌타이 고량주", "연태 고량주"],
     labelKeywords: ["烟台", "古酿", "Yantai", "34%vol"],
     searchKeywords: ["입문", "양꼬치", "저도수", "부담없는"],
@@ -67,7 +67,7 @@ export const products: Product[] = [
     oneLineReview: "공자의 고향에서 온 부드러운 농향형 입문주.",
     story:
       "공자의 고향 취푸(곡부)에서 만든 술로 이름이 붙었습니다. 농향형이지만 자극이 적고 부드러워 한국에서 입문용으로 사랑받습니다.",
-    imageUrl: "/images/products/gongfu-jiajiu.svg",
+    imageUrl: "/images/products/gongfu-jiajiu.png",
     aliases: ["공부가주", "공자가주", "콩푸자주"],
     labelKeywords: ["孔府家酒", "Confucius", "39%vol"],
     searchKeywords: ["입문", "농향형", "부드러운", "공자"],
@@ -147,7 +147,7 @@ export const products: Product[] = [
     oneLineReview: "청향형의 교과서, 맑고 깨끗한 한 잔.",
     story:
       "1500년 이상의 역사를 가진 청향형의 대표 백주로, 맑고 깨끗한 향이 일품입니다. 청향형의 표준이라 불립니다.",
-    imageUrl: "/images/products/fenjiu.svg",
+    imageUrl: "/images/products/fenjiu.png",
     aliases: ["분주", "펀주", "산시 분주", "Fen jiu"],
     labelKeywords: ["汾酒", "Fenjiu", "53%vol"],
     searchKeywords: ["청향형", "명주", "깔끔한", "역사"],
@@ -307,7 +307,7 @@ export const products: Product[] = [
     oneLineReview: "중국 8대 명주의 정점, 장향형의 황제.",
     story:
       "‘국주(国酒)’라 불리는 중국 백주의 절대 강자. 1915년 파나마 세계박람회에서 금상을 받으며 세계적인 명성을 얻었고, 마오타이진의 독특한 미생물 환경에서만 빚을 수 있다고 알려져 있습니다.",
-    imageUrl: "/images/products/maotai.svg",
+    imageUrl: "/images/products/maotai.png",
     aliases: [
       "마오타이",
       "모태주",
@@ -476,7 +476,7 @@ export const products: Product[] = [
     oneLineReview: "푸른 바다처럼 부드러운 양하의 가성비 라인.",
     story:
       "양하 주류의 ‘블루 시리즈’ 중 가장 부담 없는 라인업입니다. 부드러운 진입감으로 한국에서도 사랑받는 입문급 프리미엄 백주입니다.",
-    imageUrl: "/images/products/haizhilan.svg",
+    imageUrl: "/images/products/haizhilan.png",
     aliases: ["해지람", "Sea Blue", "양하 해지람"],
     labelKeywords: ["海之蓝", "Sea Blue", "42%vol"],
     searchKeywords: ["가성비", "선물용", "면유"],
@@ -556,7 +556,7 @@ export const products: Product[] = [
     oneLineReview: "작은 병에 강한 한 방, 베이징 서민의 클래식.",
     story:
       "베이징 사람들의 대표적인 서민 술로, 두 번째로 추출되는 ‘이과두(二锅头)’만 사용해 만든다고 해서 붙은 이름입니다. 한국에서는 작은 100ml 병이 ‘작은 빨간 병’으로 친숙합니다.",
-    imageUrl: "/images/products/erguotou.svg",
+    imageUrl: "/images/products/erguotou.png",
     aliases: ["이과두주", "이과두", "얼궈터우", "Erguotou", "二锅头"],
     labelKeywords: ["二锅头", "Erguotou", "56%vol", "红星"],
     searchKeywords: ["저가", "가성비", "양꼬치", "베이징"],
@@ -596,7 +596,7 @@ export const products: Product[] = [
     oneLineReview: "젊은 감각의 작은 병, 가볍게 한 잔 하기 좋은 한입 백주.",
     story:
       "젊은 세대를 겨냥한 트렌디한 디자인과 작은 병으로 유명한 청향형 백주입니다. 한 잔 사이즈로 즐기기 좋습니다.",
-    imageUrl: "/images/products/jiangxiaobai.svg",
+    imageUrl: "/images/products/jiangxiaobai.png",
     aliases: ["강소백", "Jiang Xiao Bai", "쟝샤오바이"],
     labelKeywords: ["江小白", "Jiang Xiao Bai", "40%vol"],
     searchKeywords: ["입문", "젊은", "가벼운", "한잔"],
@@ -636,7 +636,7 @@ export const products: Product[] = [
     oneLineReview: "대만이 자랑하는 청향형 고도주의 대표.",
     story:
       "대만의 진먼섬(금문도)에서 생산하는 고량주로, 대만 백주를 대표하는 명주입니다. 청향형의 깔끔한 매력과 함께 강한 도수를 자랑합니다.",
-    imageUrl: "/images/products/jinmen-kaoliang.svg",
+    imageUrl: "/images/products/jinmen-kaoliang.png",
     aliases: ["금문고량주", "킨먼고량주", "Kinmen Kaoliang"],
     labelKeywords: ["金門高粱酒", "Kinmen", "Kaoliang", "58%vol"],
     searchKeywords: ["대만", "명주", "청향형", "고도주"],
@@ -676,7 +676,7 @@ export const products: Product[] = [
     oneLineReview: "댓잎과 약초의 향이 살아 있는 황녹색 약주.",
     story:
       "분주를 베이스로 댓잎과 약초를 우려낸 가향 백주로, 황녹색 빛깔과 달큰한 풍미가 특징입니다. 한국의 약주 마니아 사이에서 인기입니다.",
-    imageUrl: "/images/products/zhuyeqing.svg",
+    imageUrl: "/images/products/zhuyeqing.png",
     aliases: ["죽엽청주", "주예칭", "Zhuyeqing"],
     labelKeywords: ["竹叶青", "Zhuyeqing", "38%vol"],
     searchKeywords: ["약주", "약초", "가향", "특이한"],
@@ -756,7 +756,7 @@ export const products: Product[] = [
     oneLineReview: "마오타이의 형제 브랜드로 사랑받는 가성비 장향형.",
     story:
       "마오타이 그룹과 같은 구이저우성에서 생산되는 장향형 백주로, 마오타이보다 친근한 가격에 장향의 풍미를 즐길 수 있습니다.",
-    imageUrl: "/images/products/xijiu.svg",
+    imageUrl: "/images/products/xijiu.png",
     aliases: ["습주", "Xijiu", "시지우"],
     labelKeywords: ["习酒", "Xijiu", "53%vol"],
     searchKeywords: ["장향형", "가성비", "선물용"],
@@ -916,7 +916,7 @@ export const products: Product[] = [
     oneLineReview: "쌀이 빚어내는 부드러운 미향, 입문자도 부담 없는 한 잔.",
     story:
       "광시 구이린의 명물로 꼽히는 미향형 백주로, 쌀로 빚어 부드럽고 단아한 풍미를 자랑합니다.",
-    imageUrl: "/images/products/sanhuajiu.svg",
+    imageUrl: "/images/products/sanhuajiu.png",
     aliases: ["삼화주", "Sanhua Jiu", "三花酒"],
     labelKeywords: ["三花酒", "Sanhua", "38%vol"],
     searchKeywords: ["미향형", "입문", "부드러운", "쌀"],
